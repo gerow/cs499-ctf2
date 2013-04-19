@@ -2,13 +2,17 @@
 <body>
 
 <?php
-$user = $_POST["user"];
-$pass = $_POST["pass"];
-$choice = $_POST["drop"];
-$amount = $_POST["amount"];
+$user = $_GET["user"];
+$pass = $_GET["pass"];
+$choice = $_GET["drop"];
+$amount = $_GET["amount"];
 $link = mysql_connect('localhost', 'root', 'rootmysql');
 if (!$link) {
     die('Could not connect: ' . mysql_error());
+}
+if (!isset($choice))
+{
+	die('Choice not set');
 }
 $db_selected = mysql_select_db('ctf2', $link);
 if (!$db_selected) {
@@ -16,9 +20,13 @@ if (!$db_selected) {
 }
 if ($choice == 'balance')
 {
-   $query="select * from transfers where user='$user'\n";
+   $query=sprintf("select * from transfers where user='%s'\n", 
+		mysql_real_escape_string($user));
    $result=mysql_query($query);
-   $sum = 0;
+   if(!$result){
+		die('Invalid query: ' . mysql_error());
+	}
+	$sum = 0;
    print "<TABLE BORDER=1><TH>User</TH><TH>Amount</TH>\n";
    while ( $db_field = mysql_fetch_assoc($result) ) {
    print "<TR>";
@@ -31,7 +39,11 @@ if ($choice == 'balance')
 }
 else if ($choice == 'register')
 {
-   $query="insert into users (user, pass) values ('$user','$pass')";
+	if(!isset($user) || !isset($pass)){
+		die('User or password not set');
+	}
+   $query=sprintf("insert into users (user, pass) values ('%s','%s')"
+		, mysql_real_escape_string($user), mysql_real_escape_string($pass));
    $result=mysql_query($query);
    print "Registered user $user\n";
 }
