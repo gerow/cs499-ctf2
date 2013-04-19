@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# This script forwards connections to localhost:8080 to the server's port 80
+
+if [ -z "$1" ]
+then
+  echo "usage: $0 deterlab_username"
+  exit 1
+fi
+
+ssh $1@users.deterlab.net -L 8080:server.CTF2Test.CISC499.isi.deterlab.net:80
