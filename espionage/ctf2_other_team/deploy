@@ -1,0 +1,2 @@
+sudo cp /proj/CISC499/ctf2/*.php /var/www
+sudo cp /proj/CISC499/ctf2/httpd.conf /etc/apache2

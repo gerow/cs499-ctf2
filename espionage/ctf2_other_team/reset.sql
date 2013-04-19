@@ -1,0 +1,11 @@
+use ctf2;
+drop table transfers;
+create table transfers (id mediumint not null auto_increment, user char(20) not null, amount int not null, primary key (id)) ENGINE=MyISAM;
+drop table users;
+create table users (user char(20) not null, pass char(32) not null, primary key (user)) ENGINE=MyISAM;
+insert into users values('jelena','$2sP6LzKE0U76');
+insert into users values('john','$2NOgvPA7k9AE');
+insert into users values('kate','$25LXh1ZAL7Oc');
+insert into transfers (user, amount) values ('jelena','100');
+insert into transfers (user, amount) values ('john','100');
+insert into transfers (user, amount) values ('kate','300');

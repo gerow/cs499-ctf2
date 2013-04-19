@@ -1,0 +1,7 @@
+echo hello world...
+sudo apt-get update
+sudo apt-get install lamp-server^
+sudo cp /proj/CISC499/ctf2/*.php /var/www
+sudo cp /proj/CISC499/ctf2/httpd.conf /etc/apache2
+sudo /etc/init.d/apache2 restart
+sudo mysql -u"root" -p"98j20jf8(#J*(j893jrijio32jf982j*#(*(J28jf2" < /proj/CISC499/ctf2/setup.sql
