@@ -2,10 +2,10 @@
 <body>
 
 <?php
-$user = $_GET["user"];
-$pass = $_GET["pass"];
-$choice = $_GET["drop"];
-$amount = $_GET["amount"];
+$user = $_POST["user"];
+$pass = $_POST["pass"];
+$choice = $_POST["drop"];
+$amount = $_POST["amount"];
 $link = mysql_connect('localhost', 'root', 'rootmysql');
 if (!$link) {
     die('Could not connect: ' . mysql_error());
