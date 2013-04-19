@@ -45,17 +45,27 @@ else if ($choice == 'register')
    $query=sprintf("insert into users (user, pass) values ('%s','%s')"
 		, mysql_real_escape_string($user), mysql_real_escape_string($pass));
    $result=mysql_query($query);
-   print "Registered user $user\n";
+   if(!$result){
+      die('Failed to register user');
+   }
+   else print "Registered user $user\n";
 }
 else if ($choice == 'deposit')
 {
-   $query="insert into transfers (user, amount) values ('$user','$amount')";
+	if(!isset($amount) || $amount <= 0){
+		die('Improper amount');		
+	}
+
+   $query=sprintf("insert into transfers (user, amount) values ('%s','%s')", mysql_real_escape_string($user), mysql_real_escape_string($amount));
    $result=mysql_query($query);
    print "Deposited $amount dollars\n";
 }
-else
+else if($choice == 'withdraw')
 {
-   $query="insert into transfers (user, amount) values ('$user', -'$amount')";
+   if(!isset($amount) || $amount <= 0){
+		die('Improper amount');
+   }
+   $query=sprintf("insert into transfers (user, amount) values ('%s', -'%s')",mysql_real_escape_string($user),mysql_real_escape_string($amount));
    $result=mysql_query($query);
    print "Withdrawn $amount dollars\n";
 }
