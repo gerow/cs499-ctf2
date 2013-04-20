@@ -20,8 +20,12 @@ if (!$db_selected) {
 }
 if ($choice == 'balance')
 {
-   $query=sprintf("select * from transfers where user='%s'\n", 
-		mysql_real_escape_string($user));
+   $query=sprintf("select * from users where user='%s' and pass='%s'",mysql_real_escape_string($user),mysql_real_escape_string($pass));
+   $result=mysql_query($query);
+   if(mysql_num_rows($result) == 0){
+	die('incorrect user / password combo');
+   }  
+   $query=sprintf("select * from transfers where user='%s'\n", mysql_real_escape_string($user));
    $result=mysql_query($query);
    if(!$result){
 		die('Invalid query: ' . mysql_error());
@@ -65,6 +69,11 @@ else if($choice == 'withdraw')
    if(!isset($amount) || $amount <= 0){
 		die('Improper amount');
    }
+   $query=sprintf("select * from users where user='%s' and pass='%s'",mysql_real_escape_string($user),mysql_real_escape_string($pass));
+   $result=mysql_query($query);
+   if(mysql_num_rows($result) == 0){
+	die('incorrect user / password combo');
+   }  
    $query=sprintf("insert into transfers (user, amount) values ('%s', -'%s')",mysql_real_escape_string($user),mysql_real_escape_string($amount));
    $result=mysql_query($query);
    print "Withdrawn $amount dollars\n";
