@@ -74,7 +74,7 @@ else if($choice == 'withdraw')
    if(mysql_num_rows($result) == 0){
 	die('incorrect user / password combo');
    }
-   $query=sprintf("select amount from users where user='%s'",mysql_real_escape_string($user)); 
+   $query=sprintf("select amount from transfers where user='%s'",mysql_real_escape_string($user)); 
    $database_amount=mysql_query($query);
    if($database_amount == 0 || $amount > $database_amount){
 	die ('Account Low! Transaction cancelled.');
